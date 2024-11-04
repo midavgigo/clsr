@@ -1,6 +1,15 @@
-#ifndef _BUILD_TYPE
+#ifndef CMAKE_BUILD_TYPE
     #cmakedefine CMAKE_BUILD_TYPE "@CMAKE_BUILD_TYPE@"
 #endif
-#ifndef _LOG_PATH
+#ifndef CMAKE_LOG_PATH
     #cmakedefine CMAKE_LOG_PATH "@CMAKE_LOG_PATH@"
+#endif
+#ifndef CMAKE_THREAD_LIMIT
+    #cmakedefine CMAKE_THREAD_LIMIT @CMAKE_THREAD_LIMIT@
+#endif
+#ifndef CMAKE_SERVER_PORT
+    #cmakedefine CMAKE_SERVER_PORT @CMAKE_SERVER_PORT@
+#endif
+#ifndef CMAKE_REQUEST_LIMIT
+    #cmakedefine CMAKE_REQUEST_LIMIT @CMAKE_REQUEST_LIMIT@
 #endif

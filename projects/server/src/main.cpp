@@ -1,7 +1,15 @@
 #include <iostream>
 #include "logger.h"
+#include "NetHandler/NetHandler.h"
 
 int main(){
     Logger::init();
-    Logger::logf("U menya ochko vot takoy shiriny %d", 22);
+    NetHandler nh;
+    while(true){
+        try{
+            nh.proc();
+        }catch(...){
+            break;
+        }
+    }
 }

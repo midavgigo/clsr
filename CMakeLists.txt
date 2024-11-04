@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.28)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-set(CMAKE_BUILD_TYPE DEBUG)
-set(CMAKE_LOG_PATH log)
+set(CMAKE_BUILD_TYPE    DEBUG)
+set(CMAKE_LOG_PATH      log)
+set(CMAKE_THREAD_LIMIT  4)
+set(CMAKE_SERVER_PORT   80)
+set(CMAKE_REQUEST_LIMIT 256)
 include_directories(include)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "target")
 

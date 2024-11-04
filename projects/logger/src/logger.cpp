@@ -1,7 +1,7 @@
 #include "logger.h"
 
 std::string Logger::fpath_ = "";
-long long Logger::num_ = 0;
+uint64_t Logger::num_ = 0;
 
 void Logger::init(){
     std::time_t now = std::time(nullptr);
@@ -37,7 +37,7 @@ std::string Logger::fmt(const char * format, va_list factor){
     for(const char * cptr = format; *cptr; cptr++){
         char c = *cptr;
         int d = 0;
-        if(c != '%'){
+        if(c != FormatTypes::Control){
             ret += c;
         }else{
             cptr++;
@@ -89,5 +89,7 @@ void Logger::wrnf(const char *format, ...){
 void Logger::errf(const char *format, ...){
     va_list factor;
     va_start(factor, format);
-    log(getPrefix()+" [ERROR] "+fmt(format, factor));
+    log_error_t error = getPrefix()+" [ERROR] "+fmt(format, factor);
+    log(error);
+    throw error;
 }
