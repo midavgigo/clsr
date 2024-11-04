@@ -1,0 +1,6 @@
+#ifndef _BUILD_TYPE
+    #cmakedefine CMAKE_BUILD_TYPE "@CMAKE_BUILD_TYPE@"
+#endif
+#ifndef _LOG_PATH
+    #cmakedefine CMAKE_LOG_PATH "@CMAKE_LOG_PATH@"
+#endif

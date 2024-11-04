@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.30.5)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_BUILD_TYPE DEBUG)
+set(CMAKE_LOG_PATH log)
+include_directories(include)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "target")
+
+project(mathserv VERSION 0.1)
+include_directories(include)
+configure_file("include/config.h.in" "include/config.h" @ONLY)
+
+add_subdirectory(projects/logger)
+add_subdirectory(projects/client)
+add_subdirectory(projects/server)
