@@ -11,6 +11,6 @@ int main(){
     CNetHandler hand("127.0.0.1", CMAKE_SERVER_PORT);
     while(true){
         hand.send_message("zdarova");
-        std::this_thread::sleep_for(std::chrono::microseconds(500));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 }

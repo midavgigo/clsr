@@ -7,6 +7,12 @@
 #cmakedefine CMAKE_SERVER_PORT @CMAKE_SERVER_PORT@
 #cmakedefine CMAKE_REQUEST_LIMIT @CMAKE_REQUEST_LIMIT@
 
+#include <string>
+namespace build_types{
+    const std::string DEBUG     = "DEBUG";
+    const std::string RELEASE   = "RELEASE";
+};
+
 typedef int32_t sd;
 typedef u_char byte;
 #endif

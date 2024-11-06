@@ -27,7 +27,7 @@ typedef std::string log_error_t;
 //Класс для записи логов
 class Logger{
 public:
-    static void init(std::string prefix);
+    static void init(std::string subdir);
     //Запись лога с помощью формата
     static void logf(const char * format...);
     //Запись лога с тегом о предупреждении
@@ -44,6 +44,7 @@ private:
         @return Строка в виде времени и порядковому номеру лога 
     */
     static std::string getPrefix();
+    static void debug_log(std::string message);
     static uint64_t         num_;   //Порядковый номер лога
     static std::string      fpath_; //Путь к файлу с логами
 };

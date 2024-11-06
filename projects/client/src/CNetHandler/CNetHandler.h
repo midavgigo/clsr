@@ -18,7 +18,6 @@ public:
     void send_message(std::string message);
     void send_message(std::unique_ptr<byte> buffer, size_t len=0);
 private:
-    sd sock;
     sockaddr_in sadr;
 };
 #endif

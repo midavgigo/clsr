@@ -1,12 +1,6 @@
 #include "CNetHandler.h"
 
 CNetHandler::CNetHandler(){
-    sock = socket(AF_INET, SOCK_STREAM, 0);
-    if(sock<0){
-        Logger::errf("Can't create client's socket");
-    }else{
-        Logger::logf("Socket for client is created: %d", sock);
-    }
     sadr.sin_family = AF_INET;
 }
 
@@ -16,7 +10,6 @@ CNetHandler::CNetHandler(std::string address, uint16_t port): CNetHandler(){
 }
 
 CNetHandler::~CNetHandler(){
-    close(sock);
 }
 
 void CNetHandler::change_address(std::string address, uint16_t port){
@@ -33,13 +26,20 @@ void CNetHandler::send_message(std::string message){
 }
 
 void CNetHandler::send_message(std::unique_ptr<byte> buffer, size_t len){
+    sd sock = socket(AF_INET, SOCK_STREAM, 0);
+    if(sock<0){
+        Logger::errf("Can't create client's socket");
+    }else{
+        Logger::logf("Socket for client is created: %d", sock);
+    }
     if(len == 0){
         for(byte *b = buffer.get(); *b; b++){
             len++;
         }
     }
-    if(connect(sock, (const sockaddr *)&sadr, sizeof(sadr)) < 0){
-        Logger::wrnf("Can't connect to server");
+    int res = connect(sock, (const sockaddr *)&sadr, sizeof(sadr));
+    if(res < 0){
+        Logger::wrnf("Can't connect to server: %d", res);
     }else{
         Logger::logf("Successful connection");
         if(send(sock, buffer.get(), len, 0)<0){
@@ -48,4 +48,5 @@ void CNetHandler::send_message(std::unique_ptr<byte> buffer, size_t len){
             Logger::logf("Message successful sended");
         }
     }
+    close(sock);
 }

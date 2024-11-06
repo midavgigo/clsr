@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "logger.h"
-#include "SNetHandler/SNetHandler.h"
+#include "net/SNetHandler/SNetHandler.h"
 
 int main(){
     Logger::init("SERVER");

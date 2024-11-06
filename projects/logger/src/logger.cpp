@@ -3,17 +3,24 @@
 std::string Logger::fpath_ = "";
 uint64_t Logger::num_ = 0;
 
-void Logger::init(std::string prefix){
+void Logger::init(std::string subdir){
     std::time_t now = std::time(nullptr);
     std::tm *tm_now = std::localtime(&now);
     char buf[18];
-    fpath_ = std::string(CMAKE_LOG_PATH)+"/"+prefix;
+    fpath_ = std::string(CMAKE_LOG_PATH);
     struct stat st = {0};
     if (stat(fpath_.c_str(), &st) == -1) {
         mkdir(fpath_.c_str(), 0700);
+        debug_log("Creating \""+fpath_+"\" directory");
+    }
+    fpath_ += "/"+subdir;
+    if (stat(fpath_.c_str(), &st) == -1) {
+        mkdir(fpath_.c_str(), 0700);
+        debug_log("Creating \""+fpath_+"\" directory");
     }
     std::strftime(buf, sizeof(buf), "/%Y-%m-%d.log", tm_now);
     fpath_ += std::string(buf);
+    logf("Logs Started");
 }
 
 std::string Logger::getPrefix(){
@@ -25,15 +32,12 @@ std::string Logger::getPrefix(){
 }
 
 void Logger::log(std::string message){
-    if(CMAKE_BUILD_TYPE == "DEBUG"){
-        std::cout<<fpath_<<" <- ";
-        std::cout<<message<<"\n";
-    }
+    debug_log(message);
     std::fstream out(fpath_, std::fstream::app);
     if(out.is_open()){
         out << message << "\n";
     }else{
-        std::cout<<"Can't open log file!\n";
+        debug_log("Can't open log file!");
     }
     out.close();
     num_++;
@@ -99,4 +103,10 @@ void Logger::errf(const char *format, ...){
     log_error_t error = getPrefix()+" [ERROR] "+fmt(format, factor);
     log(error);
     throw error;
+}
+
+void Logger::debug_log(std::string message){
+    if(CMAKE_BUILD_TYPE == build_types::DEBUG){
+        std::cout<<fpath_<<" <- "<<message<<"\n";
+    }
 }
