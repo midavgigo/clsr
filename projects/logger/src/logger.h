@@ -8,6 +8,9 @@
 #include <cstdarg>
 #include <iostream>
 #include <stdint.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 //Перечисление типов формата
 enum FormatTypes{
@@ -24,7 +27,7 @@ typedef std::string log_error_t;
 //Класс для записи логов
 class Logger{
 public:
-    static void init();
+    static void init(std::string prefix);
     //Запись лога с помощью формата
     static void logf(const char * format...);
     //Запись лога с тегом о предупреждении

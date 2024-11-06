@@ -1,13 +1,15 @@
-#include "NetHandler.h"
+#include "SNetHandler.h"
 
-NetHandler::NetHandler(){
+SNetHandler::SNetHandler(){
     sock = socket(AF_INET, SOCK_STREAM, 0);
     if(sock < 0){
-        Logger::errf("Can't create a socket. socket descriptor=%d", sock);
+        Logger::errf("Can't create a socket. %d", sock);
+    }else{
+        Logger::logf("Socket for listening created: %d", sock);
     }
     sadr.sin_family         = AF_INET;
     sadr.sin_addr.s_addr    = INADDR_ANY;
-    sadr.sin_port           = CMAKE_SERVER_PORT;
+    sadr.sin_port           = htons(CMAKE_SERVER_PORT);
     int result = bind(sock, (const sockaddr *)&sadr, sizeof(sadr));
     if(result < 0){
         Logger::errf(
@@ -15,6 +17,11 @@ NetHandler::NetHandler(){
             socket descriptor=%d \
             address=%d, %d:%d", 
             sock, sadr.sin_family, sadr.sin_addr, sadr.sin_port);
+    }else{
+        Logger::logf(
+            "Socket %d binded to address: %d, %d:%d", 
+            sock, sadr.sin_family, sadr.sin_addr, sadr.sin_port
+        );
     }
     result = listen(sock, CMAKE_THREAD_LIMIT);
     if(result < 0){
@@ -23,15 +30,21 @@ NetHandler::NetHandler(){
             socket descriptor=%d",
             sock
         );
+    }else{
+        Logger::logf(
+            "Socket %d set to listen mod",
+            sock
+        );
     }
 }
-NetHandler::~NetHandler(){
+SNetHandler::~SNetHandler(){
     close(sock);
 }
 
-ProcResult NetHandler::proc(){
+ProcResult SNetHandler::proc(){
     sockaddr_in client_address;
     socklen_t addrlen = sizeof(client_address);
+    Logger::logf("Wait for accept client request");
     sd nsock = accept(sock, (sockaddr *)&client_address,  &addrlen);
     if(nsock < 0){
         Logger::errf(

@@ -3,11 +3,15 @@
 std::string Logger::fpath_ = "";
 uint64_t Logger::num_ = 0;
 
-void Logger::init(){
+void Logger::init(std::string prefix){
     std::time_t now = std::time(nullptr);
     std::tm *tm_now = std::localtime(&now);
     char buf[18];
-    fpath_ = CMAKE_LOG_PATH;
+    fpath_ = std::string(CMAKE_LOG_PATH)+"/"+prefix;
+    struct stat st = {0};
+    if (stat(fpath_.c_str(), &st) == -1) {
+        mkdir(fpath_.c_str(), 0700);
+    }
     std::strftime(buf, sizeof(buf), "/%Y-%m-%d.log", tm_now);
     fpath_ += std::string(buf);
 }
@@ -22,11 +26,14 @@ std::string Logger::getPrefix(){
 
 void Logger::log(std::string message){
     if(CMAKE_BUILD_TYPE == "DEBUG"){
+        std::cout<<fpath_<<" <- ";
         std::cout<<message<<"\n";
     }
-    std::fstream out(fpath_, std::fstream::out);
+    std::fstream out(fpath_, std::fstream::app);
     if(out.is_open()){
         out << message << "\n";
+    }else{
+        std::cout<<"Can't open log file!\n";
     }
     out.close();
     num_++;

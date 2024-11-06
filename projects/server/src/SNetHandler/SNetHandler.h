@@ -1,5 +1,5 @@
-#ifndef __NET_HANDLER_H__
-#define __NET_HANDLER_H__
+#ifndef __S_NET_HANDLER_H__
+#define __S_NET_HANDLER_H__
 #include <stdint.h>
 #include <queue>
 #include "config.h"
@@ -17,13 +17,12 @@ enum ProcResult{
     Error
 };
 typedef std::queue<ClientRequest> request_queue;
-typedef int32_t sd;
 typedef char    message_unit;
 //Класс для работы с сетевой связью
-class NetHandler{
+class SNetHandler{
 public:
-    NetHandler();
-    ~NetHandler();
+    SNetHandler();
+    ~SNetHandler();
 
     ProcResult      proc();
 private:

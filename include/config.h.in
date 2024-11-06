@@ -1,15 +1,12 @@
-#ifndef CMAKE_BUILD_TYPE
-    #cmakedefine CMAKE_BUILD_TYPE "@CMAKE_BUILD_TYPE@"
-#endif
-#ifndef CMAKE_LOG_PATH
-    #cmakedefine CMAKE_LOG_PATH "@CMAKE_LOG_PATH@"
-#endif
-#ifndef CMAKE_THREAD_LIMIT
-    #cmakedefine CMAKE_THREAD_LIMIT @CMAKE_THREAD_LIMIT@
-#endif
-#ifndef CMAKE_SERVER_PORT
-    #cmakedefine CMAKE_SERVER_PORT @CMAKE_SERVER_PORT@
-#endif
-#ifndef CMAKE_REQUEST_LIMIT
-    #cmakedefine CMAKE_REQUEST_LIMIT @CMAKE_REQUEST_LIMIT@
+#ifndef __CONFIG_H__
+#define __CONFIG_H__
+#include <sys/types.h>
+#cmakedefine CMAKE_BUILD_TYPE "@CMAKE_BUILD_TYPE@"
+#cmakedefine CMAKE_LOG_PATH "@CMAKE_LOG_PATH@"
+#cmakedefine CMAKE_THREAD_LIMIT @CMAKE_THREAD_LIMIT@
+#cmakedefine CMAKE_SERVER_PORT @CMAKE_SERVER_PORT@
+#cmakedefine CMAKE_REQUEST_LIMIT @CMAKE_REQUEST_LIMIT@
+
+typedef int32_t sd;
+typedef u_char byte;
 #endif

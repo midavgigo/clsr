@@ -1,10 +1,12 @@
 #include <iostream>
+#include <cstring>
 #include "logger.h"
-#include "NetHandler/NetHandler.h"
+#include "SNetHandler/SNetHandler.h"
 
 int main(){
-    Logger::init();
-    NetHandler nh;
+    Logger::init("SERVER");
+    Logger::logf("Server's logger initialized");
+    SNetHandler nh;
     while(true){
         try{
             nh.proc();
