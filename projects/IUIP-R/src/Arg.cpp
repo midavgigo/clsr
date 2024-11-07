@@ -26,3 +26,7 @@ void Arg::getValue(void *v){
 Type Arg::getType(){
     return t_;
 }
+
+Arg::~Arg(){
+    delete v_;
+}

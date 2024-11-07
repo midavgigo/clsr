@@ -15,4 +15,14 @@ namespace build_types{
 
 typedef int32_t sd;
 typedef u_char byte;
+
+enum IUIP_VERSION{
+    INDEV   =   0,
+    VERSION_COUNT
+};
+typedef uint16_t mindex;
+
+const byte IUIP_COMMAND_SIZE[] = {
+    4
+};
 #endif

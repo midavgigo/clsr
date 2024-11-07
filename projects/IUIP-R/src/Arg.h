@@ -11,10 +11,11 @@ enum Type{
 class Arg{
 public:
     Arg(Type t, void* v);
+    ~Arg();
     void getValue(void *v);
     Type getType();
 private:
     Type t_;
-    void * v_;
+    void *v_;
 };
 #endif
