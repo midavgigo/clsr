@@ -1,6 +1,7 @@
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 #include <sys/types.h>
+#include <memory>
 #cmakedefine CMAKE_BUILD_TYPE "@CMAKE_BUILD_TYPE@"
 #cmakedefine CMAKE_LOG_PATH "@CMAKE_LOG_PATH@"
 #cmakedefine CMAKE_THREAD_LIMIT @CMAKE_THREAD_LIMIT@
@@ -15,6 +16,7 @@ namespace build_types{
 
 typedef int32_t sd;
 typedef u_char byte;
+typedef std::unique_ptr<byte> message;
 
 enum IUIP_VERSION{
     INDEV   =   0,
@@ -23,6 +25,6 @@ enum IUIP_VERSION{
 typedef uint16_t mindex;
 
 const byte IUIP_COMMAND_SIZE[] = {
-    4
+    1
 };
 #endif
