@@ -5,7 +5,7 @@
 #include <cstring>
 
 enum Type{
-    Int,
+    Int = 0,
     Flt,
     Str,
     TYPES_COUNT
@@ -19,13 +19,15 @@ const mindex TYPE_SIZES[] = {
 
 class Arg{
 public:
-    Arg(Type t, void* v);
-    //~Arg();
+    Arg(Type t);
+    Arg(const Arg &arg);
+    void copyValue(const void *v);
     void getValue(void *v);
     Type getType();
-    Arg(mindex ind_size, message raw);
+    Arg(mindex ind_size, const void * raw, mindex &shift);
+    size_t getSize();
 private:
     Type t_;
-    message v_;
+    buffer v_;
 };
 #endif

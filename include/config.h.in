@@ -15,16 +15,16 @@ namespace build_types{
 };
 
 typedef int32_t sd;
-typedef u_char byte;
-typedef std::unique_ptr<byte> message;
+typedef char byte;
+typedef std::unique_ptr<byte> buffer;
 
-enum IUIP_VERSION{
+enum IUIP_version{
     INDEV   =   0,
     VERSION_COUNT
 };
 typedef uint16_t mindex;
 
-const byte IUIP_COMMAND_SIZE[] = {
+const size_t IUIP_IND_SIZE[] = {
     1
 };
 #endif
