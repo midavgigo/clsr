@@ -1,6 +1,6 @@
 project(server VERSION 0.1.0)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../../target")
-set(SOURCE src/main.cpp src/net/SNetHandler/SNetHandler.cpp src/net/WorkThread/WorkThread.cpp)
+set(SOURCE src/main.cpp src/net/SNetHandler/SNetHandler.cpp src/threading/TaskQueue.cpp)
 add_executable(${PROJECT_NAME} ${SOURCE})
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)

@@ -32,20 +32,20 @@ const byte IUIP_VERS[4] = {'.','V','E','R'};
 
 typedef std::vector<Arg> args_t;
 typedef std::pair<Command, args_t> cmd_arg_t;
-typedef std::vector<cmd_arg_t> cmd_list_t;
+typedef std::vector<cmd_arg_t> task_t;
 
 class Request{
 public:
     Request(IUIP_version v = IUIP_version::INDEV);
     bool parse(buffer_t raw);
     void pushCmd(cmd_arg_t cmd);
-    cmd_arg_t popCmd();
-    cmd_list_t getCommands();
+    void popCmd();
+    task_t getCommands();
     size_t getMessage(buffer_t &buf);
 private:
     size_t getMessageSize();
 
     IUIP_version v_;
-    cmd_list_t commands_;
+    task_t commands_;
 };
 #endif

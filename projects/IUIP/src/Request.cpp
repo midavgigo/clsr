@@ -56,7 +56,7 @@ bool Request::parse(buffer_t raw){
                 return false;
             }
             if(a.getType() != COMMAND_TYPES[cmd][i]){
-                Logger::wrnf("Parsed argument type have wrong type: %d");
+                Logger::wrnf("Parsed argument type have wrong type: %d", a.getType());
                 return false;
             }
             commands_[commands_.size()-1].second.push_back(a);
@@ -66,10 +66,11 @@ bool Request::parse(buffer_t raw){
 }
 
 void Request::pushCmd(cmd_arg_t cmd){
+    Logger::logf("1");
     commands_.push_back(cmd);
 }
 
-cmd_list_t Request::getCommands(){
+task_t Request::getCommands(){
     return commands_;
 }
 
@@ -116,4 +117,8 @@ size_t Request::getMessage(buffer_t &buf){
     }
     buf = move(ret);
     return message_len;
+}
+
+void Request::popCmd(){
+    commands_.pop_back();
 }

@@ -55,10 +55,20 @@ int main(){
                                 cmd.second[cmd.second.size()-1].copyValue(s.c_str());
                                 break;
                         }
-                        r.pushCmd(cmd);
+                    }
+                    r.pushCmd(cmd);
+                    for(cmd_arg_t cmd : r.getCommands()){
+                        Logger::logf("cmd %d", cmd.first);
+                        for(Arg arg : cmd.second){
+                            Logger::logf("arg type %d", arg.getType());
+                        }
                     }
                     buffer_t message;
                     size_t size = r.getMessage(message);
+                    for(int i = 0; i < size; i++){
+                        std::cout<<(char)*(message.get()+i)<<",";
+                    }
+                    std::cout<<"\n";
                     for(int i = 0; i < size; i++){
                         std::cout<<(int)*(message.get()+i)<<",";
                     }
