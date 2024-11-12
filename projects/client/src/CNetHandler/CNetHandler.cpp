@@ -25,7 +25,7 @@ void CNetHandler::send_message(std::string message){
     send_message(move(mes), message.size());
 }
 
-void CNetHandler::send_message(std::unique_ptr<byte> buffer, size_t len){
+void CNetHandler::send_message(buffer_t buffer, size_t len){
     sd sock = socket(AF_INET, SOCK_STREAM, 0);
     if(sock<0){
         Logger::errf("Can't create client's socket");

@@ -41,7 +41,7 @@ SNetHandler::~SNetHandler(){
     close(sock);
 }
 
-ProcResult SNetHandler::proc(){
+void SNetHandler::proc(buffer_t &buf){
     sockaddr_in client_address;
     socklen_t addrlen = sizeof(client_address);
     Logger::logf("Wait for accept client request");
@@ -51,16 +51,17 @@ ProcResult SNetHandler::proc(){
             "Can't accept client. socket descriptor=%d", 
             nsock);
     }
-    message_unit buffer[CMAKE_REQUEST_LIMIT+1];
+    byte buffer[CMAKE_REQUEST_LIMIT+1];
     buffer[CMAKE_REQUEST_LIMIT] = 0;
-    int result = recv(nsock, buffer, sizeof(message_unit)*CMAKE_REQUEST_LIMIT, 0);
+    int result = recv(nsock, buffer, sizeof(byte)*CMAKE_REQUEST_LIMIT, 0);
     if(result<0){
         Logger::errf("Can't recieve message from client.");
     }
     Logger::logf("Get client message: %s", buffer);
-    result = send(nsock, "fuck off", sizeof(message_unit)*8, 0);
-    if(result<0){
-        Logger::errf("Can't send message to client.");
-    }
-    return ProcResult::Success;
+    buf = buffer_t(new byte[CMAKE_REQUEST_LIMIT]);
+    std::memcpy(buf.get(), buffer, sizeof(byte)*CMAKE_REQUEST_LIMIT);
+    // result = send(nsock, "answer", sizeof(message_unit)*8, 0);
+    // if(result<0){
+    //     Logger::errf("Can't send message to client.");
+    // }
 }

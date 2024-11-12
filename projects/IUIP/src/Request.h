@@ -8,16 +8,22 @@
 #include "logger.h"
 enum Command{
     Write = 0,
-    Read,
+    //Read,
     Execute,
     COMMANDS_COUNT
+};
+
+const std::string COMMAND_NAMES[] = {
+    "Write to file. Arguments Path:Str, Text:Str",
+    //"Read the file. Arguments Path:Str",
+    "Execute command. Arguments Command:Str"
 };
 
 typedef std::vector<Type> types_t;
 
 const types_t COMMAND_TYPES[] = {
-    {Type::Str, Type::Str, Type::Int},
-    {Type::Str, Type::Int},
+    {Type::Str, Type::Str},
+    //{Type::Str},
     {Type::Str}
 };
 
@@ -31,11 +37,11 @@ typedef std::vector<cmd_arg_t> cmd_list_t;
 class Request{
 public:
     Request(IUIP_version v = IUIP_version::INDEV);
-    bool parse(buffer raw);
+    bool parse(buffer_t raw);
     void pushCmd(cmd_arg_t cmd);
     cmd_arg_t popCmd();
     cmd_list_t getCommands();
-    void getMessage(buffer &buf);
+    size_t getMessage(buffer_t &buf);
 private:
     size_t getMessageSize();
 

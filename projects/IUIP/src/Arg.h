@@ -28,6 +28,6 @@ public:
     size_t getSize();
 private:
     Type t_;
-    buffer v_;
+    buffer_t v_;
 };
 #endif

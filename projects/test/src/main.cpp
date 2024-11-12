@@ -14,10 +14,10 @@ int main(){
     int wmode = 0;
     mode.copyValue(&wmode);
     req.pushCmd({Command::Write, {path, text, mode}});
-    buffer buf;
+    buffer_t buf;
     req.getMessage(buf);
     Request req_a;
-    bool res = req_a.parse(move(buf));
+    bool res = req_a.parse(std::move(buf));
     if(res){
         for(cmd_arg_t cmd : req_a.getCommands()){
             std::cout<<cmd.first<<"\n";

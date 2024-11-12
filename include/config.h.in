@@ -16,7 +16,7 @@ namespace build_types{
 
 typedef int32_t sd;
 typedef char byte;
-typedef std::unique_ptr<byte> buffer;
+typedef std::unique_ptr<byte> buffer_t;
 
 enum IUIP_version{
     INDEV   =   0,

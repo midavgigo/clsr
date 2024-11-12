@@ -1,0 +1,14 @@
+#ifndef __CLIENT_CONFIG_H__
+#define __CLIENT_CONFIG_H__
+#include <string>
+#cmakedefine CLIENT_INTERFACE "@CLIENT_INTERFACE@"
+#cmakedefine CONNECT_ADDRESS "@CONNECT_ADDRESS@"
+#cmakedefine CONNECT_PORT @CONNECT_PORT@
+
+
+namespace interfaces{
+    const std::string CLI   = "CLI";
+  //const std::string GUI   = "GUI";
+};
+
+#endif

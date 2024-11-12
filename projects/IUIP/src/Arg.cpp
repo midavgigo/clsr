@@ -1,17 +1,17 @@
 #include "Arg.h"
 
 Arg::Arg(Type t):t_(t){
-    v_ = buffer(new byte[TYPE_SIZES[t_]]);
+    v_ = buffer_t(new byte[TYPE_SIZES[t_]]);
 }
 
 Arg::Arg(const Arg &arg):t_(arg.t_){
-    v_ = buffer(new byte[TYPE_SIZES[t_]]);
+    v_ = buffer_t(new byte[TYPE_SIZES[t_]]);
     copyValue(arg.v_.get());
 }
 void Arg::copyValue(const void * v){
     switch(t_){
         case Type::Str:
-            v_ = buffer(new byte[std::strlen((const char *)v)+1]);
+            v_ = buffer_t(new byte[std::strlen((const char *)v)+1]);
             std::strncpy((char *)v_.get(), (char *)v, std::strlen((const char *)v)+1);
             break;
         default:
@@ -46,12 +46,12 @@ Arg::Arg(mindex ind_size, const void * raw, mindex &shift){
     t_ = Type(type);
     switch(t_){
         case Type::Str:
-            v_ = buffer(new byte[std::strlen((char *)(raw+offset))+1]);
+            v_ = buffer_t(new byte[std::strlen((char *)(raw+offset))+1]);
             std::strcpy(v_.get(), (char *)(raw+offset));
             offset+=getSize();
             break;
         default:
-            v_ = buffer(new byte[TYPE_SIZES[t_]]);
+            v_ = buffer_t(new byte[TYPE_SIZES[t_]]);
             if(t_ < Type::TYPES_COUNT){
                 std::memcpy(v_.get(), raw+offset, TYPE_SIZES[t_]);
                 offset+=TYPE_SIZES[t_];

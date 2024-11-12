@@ -16,7 +16,7 @@ public:
 
     void change_address(std::string address, uint16_t port);
     void send_message(std::string message);
-    void send_message(std::unique_ptr<byte> buffer, size_t len=0);
+    void send_message(buffer_t buffer, size_t len=0);
 private:
     sockaddr_in sadr;
 };

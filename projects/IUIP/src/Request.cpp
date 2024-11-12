@@ -13,7 +13,7 @@ bool checkMask(const byte * a, const byte * b, mindex len){
 }
 
 
-bool Request::parse(buffer raw){    
+bool Request::parse(buffer_t raw){    
     bool res = checkMask(IUIP_LABEL, raw.get(), 6);
     if(!res){
         Logger::wrnf("IUIP-label isn't recognized. Messages parsing is interrupted");
@@ -88,9 +88,9 @@ size_t Request::getMessageSize(){
     return ret;
 }
 
-void Request::getMessage(buffer &buf){
+size_t Request::getMessage(buffer_t &buf){
     size_t message_len = getMessageSize();
-    buffer ret(new byte[message_len]);
+    buffer_t ret(new byte[message_len]);
     mindex offset = 0;
     std::memcpy(ret.get(), IUIP_LABEL, 6);
     offset += 6;
@@ -115,4 +115,5 @@ void Request::getMessage(buffer &buf){
         }
     }
     buf = move(ret);
+    return message_len;
 }
